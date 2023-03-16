@@ -1,14 +1,18 @@
 import pandas as pd
 import pyodbc
 import sqlalchemy as sqlalchemy
-root = "E:\\bigdata\\original\\FExport2017_v.csv"
+root = "E:\\bigdata\\original\\DExportSKUs_index.csv"
 
-# engine = sqlalchemy.create_engine('mssql://GAME\\SQLEXPRESS/new_db?trusted_connection=yes')
-engine = sqlalchemy.create_engine('mssql+pyodbc://GAME\\SQLEXPRESS/new_db?trusted_connection=yes&driver=ODBC+Driver+17+for+SQL+Server')
-conn = pyodbc.connect('Driver=SQL Server;'
-                      'Server=GAME\SQLEXPRESS;'
-                      'Database=new_db;'
-                      'Trusted_Connection=yes;')
+connection = sqlalchemy.create_engine(url=f"mysql+mysqldb://alex3@192.168.1.75/sales", echo=False)
+data = pd.read_csv(root, delimiter=';', on_bad_lines='skip', low_memory=False)
 
-data = pd.read_csv(root, delimiter=';')
-data.to_sql("FExport_2017", engine, if_exists='replace', index=False)
+# data.loc[data['WeightUnit'] == ' ', 'WeightUnit'] = '0'
+# data.loc[data['Weight'] == ' ', 'Weight'] = '0'
+# data[['WeightUnit', 'Weight']] = data[['WeightUnit', 'Weight']].fillna(method="ffill").astype(float)
+# m = ''
+# for s in data['SKU'].tolist():
+#     if len(s) > len(m):
+#         m = s
+# print(m)
+
+data.to_sql("Products", connection, if_exists='replace', index=False)
