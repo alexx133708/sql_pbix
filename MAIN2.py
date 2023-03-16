@@ -85,7 +85,6 @@ with open(f'{folder}result.txt', 'w', encoding='utf-8') as res:
     print("\t",queries2)
     res.write(f"\t{queries2}\n")
     log.info('printing query №3 result end')
-
     sql1 = text(f"SELECT `P`.`StoreRegion`, `P`.`Chain`, (SELECT ROUND(SUM(`S`.`SalesValue`), 2) FROM `Sell_list_{size}` AS `S` WHERE `S`.`StoreKey` = `P`.`StoreKey` AND `S`.`Month` = :month AND `S`.`Year` = :year) AS `all_sales` FROM `Stores` AS `P` ORDER BY `all_sales` DESC LIMIT 1")
     sql2 = text(f"SELECT `P`.`StoreRegion`, `P`.`Chain`, (SELECT ROUND(SUM(`S`.`SalesValue`), 2) FROM `Sell_list_{size}` AS `S` WHERE `S`.`StoreKey` = `P`.`StoreKey` AND `S`.`Month` = :month AND `S`.`Year` = :year) AS `all_sales` FROM `Stores` AS `P` ORDER BY `all_sales` LIMIT 1")
     for year in range(2017, 2023):
@@ -106,8 +105,6 @@ with open(f'{folder}result.txt', 'w', encoding='utf-8') as res:
                 print(f"\t{queries2[i]}")
                 res.write(f"\t{queries2[i]}\n")
             log.info(f'printing query №4 {year} result end')
-
-
     sql1 = text(f"SELECT `P`.`ProductKey`, `P`.`SKU`, (SELECT ROUND(SUM(`S`.`SalesValue`), 2) FROM `Sell_list_{size}` AS `S` WHERE `S`.`ProductKey` = `P`.`ProductKey` AND `S`.`Month` = :month AND `S`.`Year` = :year) AS `all_sales` FROM `Products` AS `P` ORDER BY `all_sales` DESC LIMIT 10")
     sql2 = text(f"SELECT `P`.`ProductKey`, `P`.`SKU`, (SELECT ROUND(SUM(`S`.`SalesValue`), 2) FROM `Sell_list_{size}` AS `S` WHERE `S`.`ProductKey` = `P`.`ProductKey` AND `S`.`Month` = :month AND `S`.`Year` = :year) AS `all_sales` FROM `Products` AS `P` ORDER BY `all_sales` LIMIT 10")
     for year in range(2017, 2023):
@@ -128,10 +125,6 @@ with open(f'{folder}result.txt', 'w', encoding='utf-8') as res:
                 print(f"\t{queries2[i]}")
                 res.write(f"\t{queries2[i]}\n")
             log.info(f'printing query №5 {year} result end')
-
-
-
-
     sql1 = text(f"SELECT `P`.`Chain`, (SELECT ROUND(SUM(`S`.`SalesValue`), 2) FROM `Sell_list_{size}` AS `S` WHERE `S`.`StoreKey` = `P`.`StoreKey` AND `S`.`Year` = :year) AS `all_sales` FROM `Stores` AS `P` ORDER BY `all_sales` DESC LIMIT 3")
     sql2 = text(f"SELECT `P`.`Chain`, (SELECT ROUND(SUM(`S`.`SalesValue`), 2) FROM `Sell_list_{size}` AS `S` WHERE `S`.`StoreKey` = `P`.`StoreKey` AND `S`.`Year` = :year) AS `all_sales` FROM `Stores` AS `P` ORDER BY `all_sales` LIMIT 3")
     for year in range(2017, 2023):
