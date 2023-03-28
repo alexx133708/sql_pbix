@@ -200,3 +200,4 @@ with open(f'{folder}result.txt', 'w', encoding='utf-8') as res:
         for format, price in query.items():
             print(f'\t{format} - {round(price / summ * 100)}%')
             res.write(f'\t{format} - {round(price / summ * 100)}%\n')
+print()
