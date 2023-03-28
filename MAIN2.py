@@ -165,8 +165,10 @@ with open(f'{folder}result.txt', 'w', encoding='utf-8') as res:
                 res.write(f'\t{queries1[i][0]} - {round(queries1[i][1]/summ*100)}%\n')
         log.info(f'printing query №7 {year} result end')
     sql1 = text(f"SELECT DISTINCT `StoreFormat` FROM `Stores`")
+    log.info(f'prequery №8 start')
     queries1 = connection.execute(sql1).fetchall()
-    for year in range(2017, 2023):
+    log.info(f'prequery №8 end')
+    for year in range(2017, 2022):
         query = {}
         summ = 0
         print(f'Год - {year} Доля продаж')
@@ -183,7 +185,7 @@ with open(f'{folder}result.txt', 'w', encoding='utf-8') as res:
             res.write(f'\t{format} - {round(price / summ * 100)}%\n')
     sql1 = text(f"SELECT DISTINCT `Category` FROM `Products`")
     queries1 = connection.execute(sql1).fetchall()
-    for year in range(2017, 2023):
+    for year in range(2017, 2022):
         query = {}
         summ = 0
         print(f'Год - {year} Доля продаж')
@@ -198,4 +200,3 @@ with open(f'{folder}result.txt', 'w', encoding='utf-8') as res:
         for format, price in query.items():
             print(f'\t{format} - {round(price / summ * 100)}%')
             res.write(f'\t{format} - {round(price / summ * 100)}%\n')
-
